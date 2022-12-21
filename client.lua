@@ -1,15 +1,16 @@
-local c = Config
+onduty = false
 
-local onduty = false
+vechicleSpawned = false
+playerVehicle = nil
 
-local vechicleSpawned = false
+onDutyText = "Press [E] for Parking Enforcement"
+vehicleSpawnText = "Press [E] to spawn vehicle"
 
-local onDutyText = "Press ~r[E] for Parking Enforcement"
 
 Citizen.CreateThread(
     function()
         while true do
-            Citizen.Wait(1)
+            Citizen.Wait(0)
             for i = 1, #dutyStations, 1 do
                 ds = dutyStations[i]
                 DrawMarker(
@@ -38,29 +39,45 @@ Citizen.CreateThread(
                     nil,
                     false
                 )
-                Draw3DText(ds.onDuty.x, ds.onDuty.y, ds.onDuty.z, onDutyText, ds.onDuty.scale)
+                Draw3DText(ds.onDuty.x, ds.onDuty.y, ds.onDuty.textZ, onDutyText, ds.onDuty.scale)
+                local playerCoord = GetEntityCoords(PlayerPedId(), false)
+                local locVector = vector3(ds.onDuty.x, ds.onDuty.y, ds.onDuty.z)
+                if Vdist2(playerCoord, locVector) < ds.onDuty.scale * 1.15 then
+                    if IsControlJustReleased(1, 46) then
+                        goOnDuty()
+                        
+                    end
+                end
+
             end
         end
     end
 )
 
-function Draw3DText(x, y, z, text, scale)
-    local onScreen, _x, _y = World3dToScreen2d(x, y, z)
-    local coords = GetGameplayCamCoords()
-    local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, x, y, z, 1)
-    local scale = (1 / distance) * 2
-    if onScreen then
-        SetTextScale(0.0, scale)
-        SetTextFont(4)
-        SetTextProportional(1)
-        SetTextColour(255, 255, 255, 215)
-        SetTextDropshadow(0, 0, 0, 0, 255)
-        SetTextEdge(2, 0, 0, 0, 150)
-        SetTextDropShadow()
-        SetTextoutline()
-        SetTextEntry("STRING")
-        SetTextCenter(1)
-        AddTextComponentString(text)
-        DrawText(_x, _y)
+-- Checks for vehicle and sets variable when vehicle is spawned.
+Citizen.CreateThread(
+    function()
+        while true do
+            Citizen.Wait(1)
+                local playerId = PlayerPedId(-1)
+                local playerPed = GetPlayerPed(-1)
+                
+                if playerVehicle == nil then
+                    if IsPedInAnyVehicle(playerId, false) then 
+                        playerVehicle = GetVehiclePedIsIn(playerPed, false)
+                    end
+                end
+                
+        end
     end
-end
+)
+
+-- Checks if the vehicle the ped was just in is deleted and then 
+-- puts them off duty and ends the script.
+-- exist = DoesEntityExist(playerVehicle)
+-- if exist == false then
+--     goOffDuty()
+-- break end
+
+
+    

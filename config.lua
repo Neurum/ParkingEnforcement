@@ -2,7 +2,7 @@ Config = {
 
     checkDistance = 2,
 
-    vehicle = "11vic",
+    vehicle = "parkenf",
 
     colorNames = { 
         ['0'] = "Metallic Black",

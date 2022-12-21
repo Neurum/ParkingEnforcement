@@ -14,7 +14,8 @@ files {
 client_scripts {
     'client.lua',
     'config.lua',
-    'dutyStations.lua'
+    'dutyStations.lua',
+    'functions.lua'
 }
 server_scripts {
     'server.lua',

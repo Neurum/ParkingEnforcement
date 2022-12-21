@@ -6,18 +6,20 @@ dutyStations = {
             z = 29.29
         },
         onDuty = {
-            x = 409.81,
-            y = -1623.51,
+            x = 409.42,
+            y = -1623.25,
             z = 29.29,
+            textZ = 30.79,
             marker = 1, -- [[ Get markers here: https://docs.fivem.net/docs/game-references/markers ]]
             scale = 1.0,
-            color = {255, 0, 0, 155}
+            color = {255, 0, 0, 155},
         },
         vehicle = {
-            x = 416.71,
-            y = -1628.42,
+            x = 417.6,
+            y = -1627.5,
             z = 29.29,
-            heading = 140.86
+            heading = 140.86,
+            marker = 36
         }
     },
     { -- La Mesa
@@ -30,15 +32,17 @@ dutyStations = {
             x = 837.95,
             y = -1375.09,
             z = 26.31,
+            textZ = 27.81,
             marker = 1, -- [[ Get markers here: https://docs.fivem.net/docs/game-references/markers ]]
             scale = 1.0,
             color = {255, 0, 0, 155}
         },
         vehicle = {
-            x = 844.06,
-            y = -1352.47,
+            x = 844.36,
+            y = -1352.51,
             z = 26.08,
-            heading = 251.5
+            heading = 247.0,
+            marker = 36
         }
     },
     { -- MRPD
@@ -51,15 +55,17 @@ dutyStations = {
             x = 458.97,
             y = -1007.96,
             z = 28.26,
+            textZ = 29.76,
             marker = 1, -- [[ Get markers here: https://docs.fivem.net/docs/game-references/markers ]]
             scale = 1.0,
             color = {255, 0, 0, 155}
         },
         vehicle = {
-            x = 446.48,
-            y = -1024.27,
+            x = 445.28,
+            y = -1025.00,
             z = 28.63,
-            heading = 0.0
+            heading = 0.0,
+            marker = 36
         }
     },
     { -- Little Seoul
@@ -72,15 +78,17 @@ dutyStations = {
             x = -529.28,
             y = -903.25,
             z = 23.85,
+            textZ = 25.35,
             marker = 1, -- [[ Get markers here: https://docs.fivem.net/docs/game-references/markers ]]
             scale = 1.0,
             color = {255, 0, 0, 155}
         },
         vehicle = {
-            x = -259.25,
+            x = -529.25,
             y = -898.78,
             z = 23.85,
-            heading = 63.55
+            heading = 63.55,
+            marker = 36
         }
     },
     { -- Vespucci
@@ -93,6 +101,7 @@ dutyStations = {
             x = -1078.58,
             y = -856.87,
             z = 5.04,
+            textZ = 6.54,
             marker = 1, -- [[ Get markers here: https://docs.fivem.net/docs/game-references/markers ]]
             scale = 1.0,
             color = {255, 0, 0, 155}
@@ -101,7 +110,8 @@ dutyStations = {
             x = -1069.87,
             y = -877.87,
             z = 4.84,
-            heading = 25.85
+            heading = 31.0,
+            marker = 36
         }
     },
     { -- Vinewood
@@ -114,6 +124,7 @@ dutyStations = {
             x = 535.37,
             y = -22.02,
             z = 70.63,
+            textZ = 72.13,
             marker = 1, -- [[ Get markers here: https://docs.fivem.net/docs/game-references/markers ]]
             scale = 1.0,
             color = {255, 0, 0, 155}
@@ -122,7 +133,8 @@ dutyStations = {
             x = 529.25,
             y = -28.43,
             z = 70.63,
-            heading = 212
+            heading = 212.0,
+            marker = 36
         }
     },
     { -- Sandy
@@ -135,6 +147,7 @@ dutyStations = {
             x = 1838.91,
             y = 3693.68,
             z = 34.27,
+            textZ = 35.77,
             marker = 1, -- [[ Get markers here: https://docs.fivem.net/docs/game-references/markers ]]
             scale = 1.0,
             color = {255, 0, 0, 155}
@@ -143,7 +156,8 @@ dutyStations = {
             x = 1839.77,
             y = 3701.03,
             z = 33.93,
-            heading = 299.71
+            heading = 299.71,
+            marker = 36
         }
     },
     { -- Paleto
@@ -156,6 +170,7 @@ dutyStations = {
             x = -484.98,
             y = 6022.42,
             z = 31.34,
+            textZ = 32.84,
             marker = 1, -- [[ Get markers here: https://docs.fivem.net/docs/game-references/markers ]]
             scale = 1.0,
             color = {255, 0, 0, 155}
@@ -164,7 +179,8 @@ dutyStations = {
             x = -482.49,
             y = 6024.63,
             z = 31.34,
-            heading = 299.71
+            heading = 225.0,
+            marker = 36
         }
     }
 }
