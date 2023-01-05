@@ -1,4 +1,6 @@
-function Draw3DText(x, y, z, text, scale)
+playerPed = GetPlayerPed(-1)
+
+function draw3DText(x, y, z, text, scale)
     local onScreen, _x, _y = World3dToScreen2d(x, y, z)
     local coords = GetGameplayCamCoords()
     local dist = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, x, y, z, 1)
@@ -33,19 +35,20 @@ function showAlert(msg, beep, duration)
 end    
 
 function goOnDuty()
-    onduty = true
+    dutyStatus = true
     showAlert("You are now on duty!", true, -1)
     spawnVehicle(Config.vehicle)
 end
 
 function goOffDuty()
-    onduty = false
+    dutyStatus = false
     showAlert("You are now off duty!", true, -1)
+    local lastVehicle = GetVehiclePedIsIn(playerPed, true)
+    DeleteVehicle(lastVehicle)
 end
 
 function spawnVehicle(car)
     vehicleSpawned = true
-    local playerPed = GetPlayerPed(-1)
     local hash = GetHashKey(car)
     local carPaint = 0
     RequestModel(hash)
@@ -66,3 +69,7 @@ function spawnVehicle(car)
     SetVehicleDirtLevel(vehicle, 0.0)
     TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
 end
+
+function checkParkedVehicle(car)
+    
+end 
