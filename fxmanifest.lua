@@ -5,19 +5,22 @@ author 'Knight'
 description 'Parking Enforcement Job'
 version '1.0.0'
 
-files {
-    'sounds/receipt_print.mp3',
-    'sounds/receipt_tear.mp3'
-}
 
 -- What to run
 client_scripts {
-    'client.lua',
-    'config.lua',
-    'dutyStations.lua',
-    'functions.lua'
+    'client/client.lua',
+    'client/config.lua',
+    'client/dutyStations.lua',
+    'client/functions.lua'
 }
 server_scripts {
-    'server.lua',
+    'server/server.lua',
     
+}
+
+ui_page 'html/index.html'
+
+files {
+    'html/index.html'
+    'html/sounds/ticket.ogg',
 }
