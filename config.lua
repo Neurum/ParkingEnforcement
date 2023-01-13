@@ -1,6 +1,6 @@
 Config = {
 
-    checkDistance = 4.000,
+    checkDistance = 3.50,
 
     vehicle = "parkenf",
 
