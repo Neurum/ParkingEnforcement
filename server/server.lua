@@ -1,6 +1,6 @@
 RegisterNetEvent('TicketSound_SV:Printer')
-AddEventHandler('TicketSound_SV:Printer', function(clientNetId, soundFile, soundVolume)
-  TriggerClientEvent('TicketSound_CL:Printer', clientNetId, soundFile, soundVolume)
+AddEventHandler('TicketSound_SV:Printer', function(soundFile, soundVolume)
+  TriggerClientEvent('TicketSound_CL:Printer', source, soundFile, soundVolume)
 end)
 
 -- Webhook server event

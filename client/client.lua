@@ -3,13 +3,14 @@ vechicleSpawned = false
 playerVehicle = nil
 checkVehicle = true
 
-
-
 onDutyText = "Press [~g~E~w~] for Parking Enforcement"
 checkVehicleText = "Press [~g~E~w~] to check parking status"
 issueTicketText = "Press [~g~H~w~] to place ticket on windshield"
 
-
+RegisterNetEvent('TicketSound_CL:Printer')
+AddEventHandler('TicketSound_CL:Printer', function(soundFile, soundVolume)
+    SendNUIMessage({transactionType = 'playSound', transactionFile = soundFile, transactionVolume = soundVolume})
+end)
 
 Citizen.CreateThread(
 	function()
@@ -62,7 +63,7 @@ Citizen.CreateThread(
 Citizen.CreateThread(function()
   while true do 
 		Citizen.Wait(1)
-		if dutyStatus == false then
+		if dutyStatus == true then
       checkParkedVehicle()
 		end
 	end

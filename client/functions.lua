@@ -1,6 +1,8 @@
 playerPed = GetPlayerPed(-1)
 statusNum = nil
 parkingStatus = {"~g~Valid", "~r~Expired", "~r~No Ticket"}
+PlayerProps = {}
+ped = PlayerPedId()
 
 
 function draw3DText(x, y, z, text, scale)
@@ -66,7 +68,7 @@ function spawnVehicle(car)
     RequestModel(hash)
     
     while not HasModelLoaded(hash) do
-        Citzen.Wait(0)
+        Citizen.Wait(0)
     end
 
     local coords = GetOffsetFromEntityInWorldCoords(playerPed, 0, 5.0, 0)
@@ -81,8 +83,6 @@ function spawnVehicle(car)
     SetVehicleDirtLevel(vehicle, 0.0)
     TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
 end
-
-
 
 function checkParkedVehicle()
 	local soundFile = 'ticket'
@@ -110,7 +110,9 @@ function checkParkedVehicle()
 				math.randomseed(GetGameTimer())
 				statusNum = math.random(1, 3)
 				checkVehicleNotif(primary, modelName, plate, 120)
+				animateCheck()
       	Citizen.Wait(11000)
+				deleteProp()
 				if statusNum == 1 then
 					vehicleStatus(primary, modelName, plate, 170)
 					checkVehicle = true
@@ -126,15 +128,74 @@ function checkParkedVehicle()
 		local ticketPos = GetWorldPositionOfEntityBone(parkedCar, GetEntityBoneIndexByName(parkedCar, "windscreen"))
 		draw3DText(ticketPos.x, ticketPos.y, ticketPos.z, issueTicketText, 1.0)
 		if IsControlJustReleased(1, 74) then
-			RegisterNetEvent('TicketSound_CL:Printer')
-			AddEventHandler('TicketSound_CL:Printer', function(soundFile, soundVolume)
-				SendNUIMessage({transactionType = 'playSound', transactionFile = soundFile, transactionVolume = soundVolume})
-			end)
-			Citizen.Wait(3200)
+			TriggerServerEvent('TicketSound_SV:Printer', 'ticket', 1.0)
+			animateTicket()
+			Citizen.Wait(8000)
 				checkVehicle = true
 				statusNum = nil
+				deleteProp()
 		end
 	end 
 end
 
+function deleteProp()
+	for _, p in pairs(PlayerProps) do
+		DeleteEntity(p)
+	end
+	PlayerProps = {}
+end
 
+function loadPropDict(model)
+	while not HasModelLoaded(GetHashKey(model)) do
+		RequestModel(GetHashKey(model))
+		Wait(10)
+	end
+end
+
+function addProp(prop1, bone, off1, off2, off3, rot1, rot2, rot3)
+	local x, y, z = table.unpack(GetEntityCoords(ped))
+
+	if not HasModelLoaded(prop1) then
+		loadPropDict(prop1)
+	end
+
+	prop = CreateObject(GetHashKey(prop1), x, y, z + 0.2, true, true, true)
+	AttachEntityToEntity(prop, ped, GetPedBoneIndex(ped, bone), off1, off2, off3, rot1, rot2, rot3, true, true, false, true, 1, true)
+	table.insert(PlayerProps, prop)
+	SetModelAsNoLongerNeeded(prop1)
+	return true
+end
+
+function animateCheck()
+	local animDict = "amb@code_human_in_bus_passenger_idles@female@tablet@idle_a"
+	local animName = "idle_a"
+	
+	while not HasAnimDictLoaded(animDict) do
+		RequestAnimDict(animDict)
+		Wait(100)
+	end
+
+	TaskPlayAnim(ped, animDict, animName, 2.0, 2.0, 11000, 51, 0.0, false, false, false)
+	SetPedKeepTask(ped, true)
+	RemoveAnimDict(animDict)
+	Wait(0)
+	addProp("prop_cs_tablet", 28422, -0.05, 0.0, 0.0, 0.0, 0.0, 0.0)
+end
+
+
+function animateTicket()
+	local animDict = "missheistdockssetup1clipboard@base"
+	local animName = "base"
+
+	while not HasAnimDictLoaded(animDict) do
+		RequestAnimDict(animDict)
+		Wait(100)
+	end
+
+	TaskPlayAnim(ped, animDict, animName, 2.0, 2.0, 8000, 51, 0.0, false, false, false)
+	SetPedKeepTask(ped, true)
+	RemoveAnimDict(animDict)
+	Wait(0)
+	addProp('prop_notepad_01', 18905, 0.1, 0.02, 0.05, 10.0, 0.0, 0.0)
+	addProp('prop_pencil_01', 58866, 0.11, -0.02, 0.001, -120.0, 0.0, 0.0)
+end

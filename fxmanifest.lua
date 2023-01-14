@@ -14,13 +14,12 @@ client_scripts {
     'client/functions.lua'
 }
 server_scripts {
-    'server/server.lua',
-    
+    'server/server.lua'
 }
 
-ui_page 'html/index.html'
+ui_page 'client/html/index.html'
 
 files {
-    'html/index.html'
-    'html/sounds/ticket.ogg',
+    'client/html/index.html',
+    'client/html/sounds/ticket.ogg',
 }
